@@ -15,9 +15,15 @@ def login(username, password, securityToken, sandbox=False):
         <env:Envelope 
             xmlns:xsd="http://www.w3.org/2001/XMLSchema" 
             xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-            xmlns:env="http://schemas.xmlsoap.org/soap/envelope/">
+            xmlns:env="http://schemas.xmlsoap.org/soap/envelope/"
+            xmlns:n1="urn:partner.soap.sforce.com">
+            <env:Header>
+                <n1:CallOptions>
+                    <n1:client>Simple Salesforce</n1:client>
+                </n1:CallOptions>
+            </env:Header>
             <env:Body>
-                <n1:login xmlns:n1="urn:partner.soap.sforce.com">
+                <n1:login>
                     <n1:username>%s</n1:username>
                     <n1:password>%s%s</n1:password>
                 </n1:login>
