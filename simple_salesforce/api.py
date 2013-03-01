@@ -7,8 +7,13 @@ from login import login as SalesforceLogin
 
 class SalesforceAPI(object):
     """Salesforce API Instance"""
-    def __init__(self, username, password, securitytoken, sandbox=False):
-        self.sessionId, self.sfInstance = SalesforceLogin(username, password, securitytoken, sandbox)
+    def __init__(self, username, password, securitytoken, sandbox=False, session_instance_pair=None):
+
+        if session_instance_pair:
+            self.sessionId, self.sfInstance = session_instance_pair
+        else:
+            self.sessionId, self.sfInstance = SalesforceLogin(username, password, securitytoken, sandbox)
+
         self.headers = {
             "Content-Type":"application/json",
             "Authorization":"Bearer " + self.sessionId,
