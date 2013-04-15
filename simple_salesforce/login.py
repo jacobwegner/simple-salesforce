@@ -5,6 +5,12 @@ Heavily Modified from RestForce 1.0.0
 from util import getUniqueElementValueFromXmlString
 import requests
 
+
+# TODO Determine a more DRY way to handle this.
+def quote(this_string):
+    return this_string.replace('&', '&amp;').replace('<', '&lt;').replace(']]>', ']]&gt;')
+
+
 def login(username, password, securityToken, sandbox=False):
     if sandbox:
         soapUrl = "https://test.salesforce.com/services/Soap/u/23.0"
@@ -28,7 +34,7 @@ def login(username, password, securityToken, sandbox=False):
                     <n1:password>%s%s</n1:password>
                 </n1:login>
             </env:Body>
-        </env:Envelope>""" % (username, password, securityToken)
+        </env:Envelope>""" % (quote(username), quote(password), quote(securityToken))
 
     loginSoapRequestHeaders = {
         "content-type":"text/xml",
